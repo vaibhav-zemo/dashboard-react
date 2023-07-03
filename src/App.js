@@ -56,6 +56,8 @@ const Item = styled.li`
   align-items: center;
   color: #aeb9be;
   gap: 12px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 
   padding: 5px 12px;
   span {
@@ -108,14 +110,14 @@ const Features = styled.div`
   display: flex;
   gap: 15px;
   align-items: center;
-  margin-right: 50px;
+  margin-right: 140px;
 `;
 
 const Avatar = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  p{
+  p {
     font-weight: 700;
     color: #000000;
     font-size: 15px;
@@ -124,8 +126,8 @@ const Avatar = styled.div`
     width: 35px;
     height: 35px;
   }
-  span{
-    img{
+  span {
+    img {
       width: 8px;
       height: 8px;
     }
@@ -143,7 +145,7 @@ const Box = styled.div`
   img {
     width: 22px;
   }
-  span{
+  span {
     height: 11px;
     width: 11px;
     right: -2px;
@@ -155,7 +157,7 @@ const Box = styled.div`
 `;
 
 const Search = styled.div`
-  width: 522.34px;
+  width: 470px;
   height: 45px;
   background-color: #f8fafb;
   border-radius: 8px;
@@ -170,7 +172,82 @@ const Search = styled.div`
     font-weight: 400;
   }
 `;
+
 const Right = styled.div``;
+
+const Analytics = styled.div`
+  width: 1047px;
+  height: 154px;
+  margin-left: 50px;
+  margin-top: 25px;
+  div {
+    color: rgba(0, 0, 0, 1);
+    font-size: 16px;
+    font-weight: 700;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
+  }
+`;
+
+const Cards = styled.ul`
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  padding: 0;
+`;
+
+const Card = styled.li`
+  width: 254px;
+  height: 123px;
+  background-color: #ffffff;
+  border-radius: 17px;
+  display: flex;
+  align-items: center;
+  padding: 0px 15px;
+  gap: 10px;
+  img {
+    width: 55px;
+    height: 55px;
+  }
+`;
+
+const Detail = styled.div`
+  display: flex;
+  align-items: center;
+  `;
+
+const Price = styled.div`
+  p {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #93A3AB;
+    line-height: 16.8px;
+    margin: 0px;
+    margin-bottom: 15px;
+  }
+  span{
+    color: #000000;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+  }
+`;
+
+const Tag = styled.span`
+  width: 55px;
+  height: 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 11.58px;
+  text-align: center;  
+  margin-top: 40px;
+`;
+const Report = styled.div``;
+const Orders = styled.div``;
 
 function App() {
   return (
@@ -260,6 +337,51 @@ function App() {
             </Avatar>
           </Features>
         </Navbar>
+        <Analytics>
+          <div>Analytics</div>
+          <Cards>
+            <Card>
+              <img src="images/card1.png"></img>
+              <Detail>
+                <Price>
+                  <p>Total Revenue</p>
+                  <span>$52.6k</span>
+                </Price>
+                <Tag style={{backgroundColor: "#E3F4E3", color: "#65C565"}}>+3,4%</Tag>
+              </Detail>
+            </Card>
+            <Card>
+              <img src="images/card2.png"></img>
+              <Detail>
+                <Price>
+                  <p>Total Revenue</p>
+                  <span>$1024</span>
+                </Price>
+                <Tag style={{backgroundColor: "#F4E3E3", color: "#C56565"}}>-5.5%</Tag>
+              </Detail>
+            </Card>
+            <Card>
+              <img src="images/card3.png"></img>
+              <Detail>
+                <Price>
+                  <p>Total Revenue</p>
+                  <span>22</span>
+                </Price>
+              </Detail>
+            </Card>
+            <Card>
+              <img src="images/card4.png"></img>
+              <Detail>
+                <Price>
+                  <p>Total Revenue</p>
+                  <span>11</span>
+                </Price>
+              </Detail>
+            </Card>
+          </Cards>
+        </Analytics>
+        <Report></Report>
+        <Orders></Orders>
       </Right>
     </Container>
   );

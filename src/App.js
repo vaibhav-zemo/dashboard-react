@@ -7,6 +7,7 @@ const Container = styled.div`
   background: #f8fafb;
   padding: 0px;
   margin: 0px;
+  display: flex;
 `;
 
 const Sidebar = styled.div`
@@ -55,7 +56,7 @@ const Item = styled.li`
   align-items: center;
   color: #aeb9be;
   gap: 12px;
-  
+
   padding: 5px 12px;
   span {
     height: 15px;
@@ -69,6 +70,7 @@ const Item = styled.li`
     gap: 12px;
   }
 `;
+
 const Company = styled.div`
   width: 207px;
   height: 56px;
@@ -92,7 +94,82 @@ const Company = styled.div`
     }
   }
 `;
-const Navbar = styled.div``;
+
+const Navbar = styled.div`
+  display: flex;
+  background-color: #ffffff;
+  width: 1240px;
+  height: 70px;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Features = styled.div`
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-right: 50px;
+`;
+
+const Avatar = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  p{
+    font-weight: 700;
+    color: #000000;
+    font-size: 15px;
+  }
+  img {
+    width: 35px;
+    height: 35px;
+  }
+  span{
+    img{
+      width: 8px;
+      height: 8px;
+    }
+  }
+`;
+
+const Box = styled.div`
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
+  background-color: #e7edf0;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  img {
+    width: 22px;
+  }
+  span{
+    height: 11px;
+    width: 11px;
+    right: -2px;
+    top: -2px;
+    background-color: #fb7b7b;
+    border-radius: 50%;
+    position: absolute;
+  }
+`;
+
+const Search = styled.div`
+  width: 522.34px;
+  height: 45px;
+  background-color: #f8fafb;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding: 1px 25px;
+  gap: 12px;
+  margin-left: 50px;
+  p {
+    font-size: 14px;
+    color: #c1cace;
+    font-weight: 400;
+  }
+`;
 const Right = styled.div``;
 
 function App() {
@@ -161,7 +238,28 @@ function App() {
         </Company>
       </Sidebar>
       <Right>
-        <Navbar></Navbar>
+        <Navbar>
+          <Search>
+            <img src="images/search.svg"></img>
+            <p>Search</p>
+          </Search>
+          <Features>
+            <Box>
+              <img src="images/basket.svg"></img>
+            </Box>
+            <Box>
+              <img src="images/icon.svg"></img>
+              <span></span>
+            </Box>
+            <Avatar>
+              <img src="images/avatar.png"></img>
+              <p>Johny Larsen</p>
+              <span>
+                <img src="images/down-arrow.svg"></img>
+              </span>
+            </Avatar>
+          </Features>
+        </Navbar>
       </Right>
     </Container>
   );

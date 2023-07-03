@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const Container = styled.div`
   width: auto;
@@ -215,7 +216,7 @@ const Card = styled.li`
 const Detail = styled.div`
   display: flex;
   align-items: center;
-  `;
+`;
 
 const Price = styled.div`
   p {
@@ -223,14 +224,16 @@ const Price = styled.div`
       "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
     font-weight: 400;
     font-size: 14px;
-    color: #93A3AB;
+    color: #93a3ab;
     line-height: 16.8px;
     margin: 0px;
     margin-bottom: 15px;
   }
-  span{
+  span {
     color: #000000;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
     font-weight: 700;
     font-size: 20px;
   }
@@ -241,15 +244,146 @@ const Tag = styled.span`
   height: 20px;
   border-radius: 12px;
   font-weight: 700;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-size: 11.58px;
-  text-align: center;  
+  text-align: center;
   margin-top: 40px;
 `;
 const Report = styled.div``;
-const Orders = styled.div``;
+
+const Orders = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+  margin-top: 25px;
+  width: 1046px;
+  height: 348px;
+`;
+
+const Head = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  p {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 13.44px;
+    color: #acb7bd;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  div {
+    font-size: 16px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+      sans-serif;
+    font-weight: 700;
+    line-height: 17.92px;
+    color: #000000;
+  }
+`;
+
+const Table = styled.ul`
+  list-style: none;
+  width: 1008px;
+  height: 313px;
+  border-radius: 17px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  background-color: #ffffff;
+  margin: 0px;
+`;
+
+const Row = styled.li`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 906px;
+  height: 37px;
+  font-size: 13px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-weight: 700px;
+  line-height: 15.6px;
+  color: #a6a9aa;
+`;
+
+const Name = styled.div`
+  line-height: 16.8px;
+  color: #000000;
+  font-size: 14px;
+  width: 199px;
+  height: 37px;
+  display: flex;
+  gap: 10px;
+  img {
+    width: 37px;
+    height: 37px;
+  }
+  p {
+    width: 152px;
+    height: 17px;
+  }
+`;
+
+const Qty = styled.div`
+  line-height: 16.8px;
+  color: #000000;
+  font-size: 14px;
+  width: 1px;
+  height: 17px;
+`;
+
+const Date = styled.div`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.8px;
+  color: #a7aeb1;
+  width: 117px;
+  height: 17px;
+`;
+
+const Amount = styled.div`
+  font-size: 14px;
+  line-height: 16.8px;
+  color: #3c3c3c;
+  width: 56px;
+  height: 17px;
+`;
+
+const Status = styled.div`
+  font-size: 9px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  line-height: 10.08px;
+  width: 73px;
+  height: 21px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 function App() {
+  const [data, setData] = useState({});
+
+  // useEffect(() => {
+  //   const getResponse = async () => {
+  //     try {
+  //       const res = await axios.get("http://15.206.16.162:8080/dashboard/analytics");
+  //       setData(res.data);
+  //     } catch (error) {console.log(error);}
+  //   };
+  //   getResponse();
+  // }, []);
+
   return (
     <Container>
       <Sidebar>
@@ -347,7 +481,9 @@ function App() {
                   <p>Total Revenue</p>
                   <span>$52.6k</span>
                 </Price>
-                <Tag style={{backgroundColor: "#E3F4E3", color: "#65C565"}}>+3,4%</Tag>
+                <Tag style={{ backgroundColor: "#E3F4E3", color: "#65C565" }}>
+                  +3,4%
+                </Tag>
               </Detail>
             </Card>
             <Card>
@@ -357,7 +493,9 @@ function App() {
                   <p>Total Revenue</p>
                   <span>$1024</span>
                 </Price>
-                <Tag style={{backgroundColor: "#F4E3E3", color: "#C56565"}}>-5.5%</Tag>
+                <Tag style={{ backgroundColor: "#F4E3E3", color: "#C56565" }}>
+                  -5.5%
+                </Tag>
               </Detail>
             </Card>
             <Card>
@@ -381,7 +519,110 @@ function App() {
           </Cards>
         </Analytics>
         <Report></Report>
-        <Orders></Orders>
+        <Orders>
+          <Head>
+            <div>Recent Orders</div>
+            <p>
+              <span>Go to Orders Page</span>
+              <img src="images/right-arrow.svg"></img>
+            </p>
+          </Head>
+          <Table>
+            <Row
+              style={{
+                backgroundColor: "#F7F9FA",
+                borderRadius: "4px",
+              }}
+            >
+              <Name
+                style={{
+                  color: "#A6A9AA",
+                  fontWeight: "700px",
+                  fontSize: "13px",
+                  fontWeight: "700",
+                }}
+              >
+                <p>Item Name</p>
+              </Name>
+              <Qty
+                style={{
+                  color: "#A6A9AA",
+                  fontWeight: "700px",
+                  fontSize: "13px",
+                  fontWeight: "700",
+                }}
+              >
+                Qty
+              </Qty>
+              <Date
+                style={{
+                  color: "#A6A9AA",
+                  fontWeight: "700px",
+                  fontSize: "13px",
+                  fontWeight: "700",
+                }}
+              >
+                Order Data
+              </Date>
+              <Amount
+                style={{
+                  color: "#A6A9AA",
+                  fontWeight: "700px",
+                  fontSize: "13px",
+                  fontWeight: "700",
+                }}
+              >
+                Amount
+              </Amount>
+              <Status
+                style={{
+                  height: "16px",
+                  fontWeight: "700px",
+                  fontSize: "13px",
+                  fontWeight: "700",
+                }}
+              >
+                Status
+              </Status>
+            </Row>
+            <Row>
+              <Name>
+                <img src="images/product1.png"></img>
+                <p>Iphone 13</p>
+              </Name>
+              <Qty>1</Qty>
+              <Date>January 20, 2022</Date>
+              <Amount>$799.00</Amount>
+              <Status style={{ color: "#0561FC", backgroundColor: "#DFF0FF" }}>
+                Pending
+              </Status>
+            </Row>
+            <Row>
+              <Name>
+                <img src="images/product2.png"></img>
+                <p>Xiaomi Redmi Note 10</p>
+              </Name>
+              <Qty>1</Qty>
+              <Date>January 20, 2022</Date>
+              <Amount>$799.00</Amount>
+              <Status style={{ color: "#78C278", backgroundColor: "#E6FDE6" }}>
+                Approved
+              </Status>
+            </Row>
+            <Row>
+              <Name>
+                <img src="images/product1.png"></img>
+                <p>Iphone 13</p>
+              </Name>
+              <Qty>1</Qty>
+              <Date>January 20, 2022</Date>
+              <Amount>$799.00</Amount>
+              <Status style={{ color: "#FAA86D", backgroundColor: "#FFF4DF" }}>
+                In Process
+              </Status>
+            </Row>
+          </Table>
+        </Orders>
       </Right>
     </Container>
   );

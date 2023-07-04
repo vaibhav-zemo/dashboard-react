@@ -1,19 +1,39 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { Line, Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Tooltip,
+  Legend,
+  LineElement,
+  PointElement,
+} from "chart.js";
+
+ChartJS.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Tooltip,
+  Legend,
+  PointElement
+);
 
 const Container = styled.div`
-  width: auto;
-  height: auto;
+  width: 1510px;
   background: #f8fafb;
   padding: 0px;
   margin: 0px;
   display: flex;
 `;
 
+// -------------------------------------------> Sidebar Start
 const Sidebar = styled.div`
-  width: 273px;
-  height: 1024px;
+  width: 20%;
   background: #ffffff;
   display: flex;
   flex-direction: column;
@@ -81,6 +101,7 @@ const Company = styled.div`
   display: flex;
   padding: 10px 10px;
   border-radius: 8px;
+  margin-top: 267px;
   div {
     display: flex;
     align-items: center;
@@ -98,10 +119,11 @@ const Company = styled.div`
   }
 `;
 
+// -------------------------------------------> Navbar Start
 const Navbar = styled.div`
   display: flex;
   background-color: #ffffff;
-  width: 1240px;
+  width: 100%;
   height: 70px;
   justify-content: space-between;
   align-items: center;
@@ -111,7 +133,7 @@ const Features = styled.div`
   display: flex;
   gap: 15px;
   align-items: center;
-  margin-right: 140px;
+  margin-right: 6%;
 `;
 
 const Avatar = styled.div`
@@ -174,10 +196,13 @@ const Search = styled.div`
   }
 `;
 
-const Right = styled.div``;
+const Right = styled.div`
+  width: 80%;
+`;
 
+// -------------------------------------------> Analytics Start
 const Analytics = styled.div`
-  width: 1047px;
+  width: 90%;
   height: 154px;
   margin-left: 50px;
   margin-top: 25px;
@@ -199,7 +224,7 @@ const Cards = styled.ul`
 `;
 
 const Card = styled.li`
-  width: 254px;
+  width: 25%;
   height: 123px;
   background-color: #ffffff;
   border-radius: 17px;
@@ -207,6 +232,7 @@ const Card = styled.li`
   align-items: center;
   padding: 0px 15px;
   gap: 10px;
+  box-shadow: 0px 21px 94px rgba(0, 0, 0, 0.03);
   img {
     width: 55px;
     height: 55px;
@@ -250,15 +276,102 @@ const Tag = styled.span`
   text-align: center;
   margin-top: 40px;
 `;
-const Report = styled.div``;
 
+// -------------------------------------------> Report Start
+const Report = styled.div`
+  width: 90%;
+  height: 393px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  margin-left: 50px;
+  margin-top: 70px;
+`;
+
+const Graph = styled.div`
+  height: 393px;
+  border-radius: 17px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0px 30px 40px;
+  box-shadow: 0px 21px 94px rgba(0, 0, 0, 0.03);
+`;
+
+const LineGraph = styled.div`
+  width: 95%;
+  height: 85%;
+`;
+
+const BarGraph = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: end;
+`;
+
+const Heading = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-left: 22px;
+    p {
+      font-size: 16px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+      font-weight: 700;
+      line-height: 17.92px;
+      color: #000000;
+    }
+    select {
+      border: 1px solid #d2dce1;
+      border-radius: 15px;
+      background-color: #ffffff;
+      width: 82px;
+      height: 24px;
+      padding: 2px;
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    width: 204px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 10px;
+    margin-right: 22px;
+    li {
+      color: #c4ccd0;
+      font-size: 11px;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+        sans-serif;
+      font-weight: 700;
+      line-height: 12.32px;
+    }
+  }
+`;
+
+// -------------------------------------------> Recent Orders Start
 const Orders = styled.div`
   display: flex;
   flex-direction: column;
   margin-left: 50px;
-  margin-top: 25px;
-  width: 1046px;
+  margin-top: 45px;
+  width: 90%;
   height: 348px;
+  margin-bottom: 10px;
 `;
 
 const Head = styled.div`
@@ -290,7 +403,7 @@ const Head = styled.div`
 
 const Table = styled.ul`
   list-style: none;
-  width: 1008px;
+  width: 96%;
   height: 313px;
   border-radius: 17px;
   display: flex;
@@ -299,6 +412,7 @@ const Table = styled.ul`
   gap: 20px;
   background-color: #ffffff;
   margin: 0px;
+  box-shadow: 0px 21px 94px rgba(0, 0, 0, 0.03);
 `;
 
 const Row = styled.li`
@@ -371,39 +485,144 @@ const Status = styled.div`
   align-items: center;
 `;
 
-function App() {
-  const [data, setData] = useState({});
+const getOrders = () => {
+  return [
+    {
+      item_name: "Iphone 13",
+      quantity: 8,
+      date: "January 20, 2022",
+      amount: "$799.00",
+      status: "Pending",
+    },
+    {
+      item_name: "Xiaomi Redmi note 10",
+      quantity: 10,
+      date: "January 20, 2022",
+      amount: "$788.02",
+      status: "Pending",
+    },
+    {
+      item_name: "Iphone 12 pro",
+      quantity: 11,
+      date: "January 22, 2022",
+      amount: "$699.00",
+      status: "Pending",
+    },
+  ];
+};
 
-  // useEffect(() => {
-  //   const getResponse = async () => {
-  //     try {
-  //       const res = await axios.get("http://15.206.16.162:8080/dashboard/analytics");
-  //       setData(res.data);
-  //     } catch (error) {console.log(error);}
-  //   };
-  //   getResponse();
-  // }, []);
+const getAnalytics = () => {
+  return {
+    total_revenue: {
+      value: "56.2k",
+      currency: "$",
+      change: "+3.4%",
+    },
+    today_revenue: {
+      value: "$1024",
+      change: "-5.5%",
+    },
+    item_sold: 22,
+    user_active: 11,
+  };
+};
+
+function App() {
+  const orders = getOrders();
+  const analytics = getAnalytics();
+
+  useEffect(()=>{
+    Object.entries(analytics).map(([key, value])=>{
+    })
+  },[])
+
+  const data1 = {
+    labels: ["Mon", "Tue", "Wed", "Fri", "Sat", "Sun"],
+    datasets: [
+      {
+        data: [
+          0, 40, 40, 50, 40, 60, 65, 22, 55, 56, 69, 59, 69, 69, 20, 70, 90,
+        ],
+        backgroundColor: "transparent",
+        borderColor: "#9FC1FB",
+        pointBorderColor: "transparent",
+        pointBorderWidth: 2,
+        fill: true,
+      },
+    ],
+  };
+  const option1 = {
+    plugins: {
+      legend: false,
+    },
+    scales: {
+      x: {},
+      y: {
+        min: 0,
+        max: 100,
+        ticks: {
+          stepSize: 20,
+          callback: (value) => "$" + value + "K",
+        },
+      },
+    },
+  };
+
+  const option2 = {
+    responsive: true,
+    plugins: {
+      legend: false,
+    },
+    aspectRatio: 0.7,
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+      },
+      y: {
+        min: 0,
+        max: 100,
+        grid: {
+          display: false,
+        },
+        display: false,
+      },
+    },
+  };
+  const data2 = {
+    labels: ["M", "T", "W", "F", "S", "S"],
+    datasets: [
+      {
+        data: [55, 80, 45, 20, 60, 10, 5],
+        backgroundColor: "#0561FC",
+        borderColor: "#9FC1FB",
+        borderRadius: 6,
+      },
+    ],
+  };
 
   return (
     <Container>
+      {/* // -------------------------------------------------------> Sidebar Start */}
       <Sidebar>
         <Logo>
-          <img src="images/Logo.png"></img>
+          <img src="images/Logo.png" alt="logo"></img>
           <div>
             Manager <span>Pro</span>
           </div>
         </Logo>
         <List>
           <Item style={{ background: "#EDF4FF", borderRadius: "8px" }}>
-            <img src="images/Home.svg"></img>
+            <img src="images/Home.svg" alt="Dashboard"></img>
             <p style={{ color: "#0561FC" }}>Dashboard</p>
           </Item>
           <Item>
-            <img src="images/order.svg"></img>
+            <img src="images/order.svg" alt="Orders"></img>
             <p>Orders</p>
           </Item>
           <Item>
-            <img src="images/user.svg"></img>
+            <img src="images/user.svg" alt="Users"></img>
             <p>Users</p>
           </Item>
           <Item>
@@ -448,7 +667,9 @@ function App() {
           <img src="images/arrow.svg"></img>
         </Company>
       </Sidebar>
+
       <Right>
+        {/* // -------------------------------------------------------> Navbar Start */}
         <Navbar>
           <Search>
             <img src="images/search.svg"></img>
@@ -471,6 +692,8 @@ function App() {
             </Avatar>
           </Features>
         </Navbar>
+
+        {/* // -------------------------------------------------------> Analytics Start */}
         <Analytics>
           <div>Analytics</div>
           <Cards>
@@ -479,10 +702,10 @@ function App() {
               <Detail>
                 <Price>
                   <p>Total Revenue</p>
-                  <span>$52.6k</span>
+                  <span>{analytics.today_revenue.currency}{analytics.today_revenue.value}</span>
                 </Price>
                 <Tag style={{ backgroundColor: "#E3F4E3", color: "#65C565" }}>
-                  +3,4%
+                  {analytics.today_revenue.change}
                 </Tag>
               </Detail>
             </Card>
@@ -491,10 +714,10 @@ function App() {
               <Detail>
                 <Price>
                   <p>Total Revenue</p>
-                  <span>$1024</span>
+                  <span>{analytics.today_revenue.value}</span>
                 </Price>
                 <Tag style={{ backgroundColor: "#F4E3E3", color: "#C56565" }}>
-                  -5.5%
+                  {analytics.today_revenue.change}
                 </Tag>
               </Detail>
             </Card>
@@ -502,8 +725,8 @@ function App() {
               <img src="images/card3.png"></img>
               <Detail>
                 <Price>
-                  <p>Total Revenue</p>
-                  <span>22</span>
+                  <p>Items Sold Card</p>
+                  <span>{analytics.item_sold}</span>
                 </Price>
               </Detail>
             </Card>
@@ -511,14 +734,54 @@ function App() {
               <img src="images/card4.png"></img>
               <Detail>
                 <Price>
-                  <p>Total Revenue</p>
-                  <span>11</span>
+                  <p>Active Users</p>
+                  <span>{analytics.user_active}</span>
                 </Price>
               </Detail>
             </Card>
           </Cards>
         </Analytics>
-        <Report></Report>
+
+        {/* // -------------------------------------------------------> Report Start */}
+        <Report>
+          <Graph style={{ width: "75%" }}>
+            <Heading style={{ width: "100%" }}>
+              <div>
+                <p>Report</p>
+                <select>
+                  <option>Sales</option>
+                </select>
+              </div>
+              <ul>
+                <li>Day</li>
+                <li style={{ color: "#0561FC" }}>Week</li>
+                <li>Month</li>
+                <li>Year</li>
+              </ul>
+            </Heading>
+            <LineGraph>
+              <Line data={data1} options={option1}></Line>
+            </LineGraph>
+          </Graph>
+          <Graph style={{ width: "21%", padding: "15px", height:'105%' }}>
+            <Heading style={{ width: "100%" }}>
+              <div>
+                <p>Visits</p>
+              </div>
+              <ul style={{ justifyContent: "flex-end" }}>
+                <li>D</li>
+                <li style={{ color: "#0561FC" }}>W</li>
+                <li>M</li>
+                <li>Y</li>
+              </ul>
+            </Heading>
+            <BarGraph>
+              <Bar data={data2} options={option2} />
+            </BarGraph>
+          </Graph>
+        </Report>
+
+        {/* // -------------------------------------------------------> Recent Orders Start */}
         <Orders>
           <Head>
             <div>Recent Orders</div>
@@ -537,7 +800,6 @@ function App() {
               <Name
                 style={{
                   color: "#A6A9AA",
-                  fontWeight: "700px",
                   fontSize: "13px",
                   fontWeight: "700",
                 }}
@@ -547,7 +809,6 @@ function App() {
               <Qty
                 style={{
                   color: "#A6A9AA",
-                  fontWeight: "700px",
                   fontSize: "13px",
                   fontWeight: "700",
                 }}
@@ -557,7 +818,6 @@ function App() {
               <Date
                 style={{
                   color: "#A6A9AA",
-                  fontWeight: "700px",
                   fontSize: "13px",
                   fontWeight: "700",
                 }}
@@ -567,7 +827,6 @@ function App() {
               <Amount
                 style={{
                   color: "#A6A9AA",
-                  fontWeight: "700px",
                   fontSize: "13px",
                   fontWeight: "700",
                 }}
@@ -577,7 +836,6 @@ function App() {
               <Status
                 style={{
                   height: "16px",
-                  fontWeight: "700px",
                   fontSize: "13px",
                   fontWeight: "700",
                 }}
@@ -585,42 +843,23 @@ function App() {
                 Status
               </Status>
             </Row>
-            <Row>
-              <Name>
-                <img src="images/product1.png"></img>
-                <p>Iphone 13</p>
-              </Name>
-              <Qty>1</Qty>
-              <Date>January 20, 2022</Date>
-              <Amount>$799.00</Amount>
-              <Status style={{ color: "#0561FC", backgroundColor: "#DFF0FF" }}>
-                Pending
-              </Status>
-            </Row>
-            <Row>
-              <Name>
-                <img src="images/product2.png"></img>
-                <p>Xiaomi Redmi Note 10</p>
-              </Name>
-              <Qty>1</Qty>
-              <Date>January 20, 2022</Date>
-              <Amount>$799.00</Amount>
-              <Status style={{ color: "#78C278", backgroundColor: "#E6FDE6" }}>
-                Approved
-              </Status>
-            </Row>
-            <Row>
-              <Name>
-                <img src="images/product1.png"></img>
-                <p>Iphone 13</p>
-              </Name>
-              <Qty>1</Qty>
-              <Date>January 20, 2022</Date>
-              <Amount>$799.00</Amount>
-              <Status style={{ color: "#FAA86D", backgroundColor: "#FFF4DF" }}>
-                In Process
-              </Status>
-            </Row>
+            {orders.map((order) => {
+              return (
+                <Row>
+                  <Name>
+                    <p>{order.item_name}</p>
+                  </Name>
+                  <Qty>{order.quantity}</Qty>
+                  <Date>{order.date}</Date>
+                  <Amount>{order.amount}</Amount>
+                  <Status
+                    style={{ color: "#0561FC", backgroundColor: "#DFF0FF" }}
+                  >
+                    {order.status}
+                  </Status>
+                </Row>
+              );
+            })}
           </Table>
         </Orders>
       </Right>

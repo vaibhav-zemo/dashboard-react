@@ -11,6 +11,7 @@ import {
   Legend,
   LineElement,
   PointElement,
+  Filler
 } from "chart.js";
 
 ChartJS.register(
@@ -20,7 +21,8 @@ ChartJS.register(
   BarElement,
   Tooltip,
   Legend,
-  PointElement
+  PointElement,
+  Filler
 );
 
 const Container = styled.div`
@@ -518,7 +520,7 @@ const getAnalytics = () => {
       currency: "$",
       change: "+3.4%",
     },
-    today_revenue: {
+    today_revanue: {
       value: "$1024",
       change: "-5.5%",
     },
@@ -537,16 +539,30 @@ function App() {
   },[])
 
   const data1 = {
-    labels: ["Mon", "Tue", "Wed", "Fri", "Sat", "Sun"],
+    labels: ["Mon", "", "", "Tue", "", "", "Wed", "", "", "Thu", "", "", "Fri", "", "Sat", "",  "Sun"],
     datasets: [
       {
         data: [
           0, 40, 40, 50, 40, 60, 65, 22, 55, 56, 69, 59, 69, 69, 20, 70, 90,
         ],
-        backgroundColor: "transparent",
+        backgroundColor: (context) =>{
+          const bgColor = [
+            "rgba(5, 97, 252, 0.17)",
+            "rgba(5, 97, 252, 0)",
+          ]
+          if(!context.chart.chartArea){
+            return;
+          }
+          const {ctx, data, chartArea} = context.chart;
+          const gradientBg = ctx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+          gradientBg.addColorStop(0, bgColor[0]);
+          gradientBg.addColorStop(0.5, bgColor[0]);
+          gradientBg.addColorStop(1, bgColor[1]);
+          return gradientBg;
+        },
         borderColor: "#9FC1FB",
         pointBorderColor: "transparent",
-        pointBorderWidth: 2,
+        pointBorderWidth: 0,
         fill: true,
       },
     ],
@@ -556,7 +572,11 @@ function App() {
       legend: false,
     },
     scales: {
-      x: {},
+      x: {
+        grid: {
+          display: false,
+        },
+      },
       y: {
         min: 0,
         max: 100,
@@ -702,10 +722,10 @@ function App() {
               <Detail>
                 <Price>
                   <p>Total Revenue</p>
-                  <span>{analytics.today_revenue.currency}{analytics.today_revenue.value}</span>
+                  <span>{analytics.total_revenue.currency}{analytics.total_revenue.value}</span>
                 </Price>
                 <Tag style={{ backgroundColor: "#E3F4E3", color: "#65C565" }}>
-                  {analytics.today_revenue.change}
+                  {analytics.total_revenue.change}
                 </Tag>
               </Detail>
             </Card>
@@ -713,11 +733,11 @@ function App() {
               <img src="images/card2.png"></img>
               <Detail>
                 <Price>
-                  <p>Total Revenue</p>
-                  <span>{analytics.today_revenue.value}</span>
+                  <p>Today Revenue</p>
+                  <span>{analytics.today_revanue.value}</span>
                 </Price>
                 <Tag style={{ backgroundColor: "#F4E3E3", color: "#C56565" }}>
-                  {analytics.today_revenue.change}
+                  {analytics.today_revanue.change}
                 </Tag>
               </Detail>
             </Card>
